@@ -33,4 +33,14 @@ public interface StreamCodec<B extends ByteBuf, V> {
     default net.minecraft.network.codec.StreamCodec<B, V> toMinecraftStreamCodec() {
         return net.minecraft.network.codec.StreamCodec.of(this::encode, this::decode);
     }
+
+    static <B extends ByteBuf, T> StreamCodec<B, T> toApiStreamCodec(net.minecraft.network.codec.StreamCodec<? super B, T> codec) {
+        return StreamCodec.of(codec::encode, codec::decode);
+    }
+
+    /** Narrows the buffer type. Safe when {@code O} is a subtype of {@code B}. */
+    @SuppressWarnings("unchecked")
+    default <O extends B> StreamCodec<O, V> cast() {
+        return (StreamCodec<O, V>) this;
+    }
 }
