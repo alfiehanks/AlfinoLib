@@ -1,0 +1,31 @@
+package me.alfie.alfinolib.datapacks;
+
+import com.mojang.logging.LogUtils;
+import me.alfie.alfinolib.networking.NetworkRegisterEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import org.slf4j.Logger;
+
+public final class Datapacks {
+
+    static final Logger LOGGER = LogUtils.getLogger();
+
+    //Setup
+
+    /**
+     * Fired when the mod loads - internal use only.
+     * @param modEventBus
+     */
+    public static void init(IEventBus modEventBus) {
+        MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStart);
+        MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerFinished);
+        MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerReload);
+        MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStop);
+
+        modEventBus.addListener(Datapacks::registerPacket);
+    }
+
+    private static void registerPacket(NetworkRegisterEvent event) {
+        event.register(SyncClientDatapackPacket.class, SyncClientDatapackPacket.STREAM_CODEC);
+    }
+}
