@@ -26,6 +26,10 @@ out/
 bin/
 !**/src/**/bin/
 
+# other
+eclipse
+run
+build-all.sh
 ### VS Code ###
 .vscode/
 
