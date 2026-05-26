@@ -38,7 +38,7 @@ public final class Networking {
         INSTANCE.sendToServer(packet);
     }
 
-    public static <P extends NetworkPacket<P>> void sendToClient(P packet, ServerPlayer serverPlayer) {
+    public static <P extends NetworkPacket<P>> void sendToClient(ServerPlayer serverPlayer, P packet) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
     }
 

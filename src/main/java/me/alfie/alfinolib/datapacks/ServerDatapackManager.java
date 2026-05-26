@@ -92,7 +92,7 @@ public final class ServerDatapackManager {
     private static void sendSyncPacket(ServerPlayer player) {
         Datapacks.LOGGER.debug("Sending sync packet to {}", player);
 
-        Networking.sendToClient(new SyncClientDatapackPacket(getInstance().dataMap), player);
+        Networking.sendToClient(player, new SyncClientDatapackPacket(getInstance().dataMap));
     }
 
 
