@@ -2,7 +2,7 @@ package me.alfie.alfinolib.datapacks;
 
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * This key is used to register datapacks, retrieve data from {@link DataMap} and look up the corresponding {@link ModDatapack}.
@@ -25,8 +25,8 @@ public record DatapackKey<T> (String modid, String directory) {
         return new DatapackKey<>(modid, dir);
     }
 
-    public ResourceLocation id() {
-        return ResourceLocation.fromNamespaceAndPath(modid, directory);
+    public Identifier id() {
+        return Identifier.fromNamespaceAndPath(modid, directory);
     }
 
 }

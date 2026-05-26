@@ -7,12 +7,12 @@ import me.alfie.alfinolib.networking.codec.StreamCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record SyncClientDatapackPacket(DataMap dataMap) implements NetworkPacket<SyncClientDatapackPacket> {
 
-    public static final Type<SyncClientDatapackPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(AlfinoLib.MODID, "sync_client_datapack"));
+    public static final Type<SyncClientDatapackPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(AlfinoLib.MODID, "sync_client_datapack"));
     @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SyncClientDatapackPacket> STREAM_CODEC =

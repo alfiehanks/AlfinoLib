@@ -3,7 +3,7 @@ package me.alfie.alfinolib.datapacks;
 
 
 
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +14,11 @@ public final class DatapackRegistry {
 
     private static final Map<DatapackKey<?>, ModDatapack<?, ?>> DATAPACKS = new HashMap<>();
 
-    public static <A, B> void register(AddReloadListenerEvent event, Supplier<ModDatapack<A, B>> factory) {
+    public static <A, B> void register(AddServerReloadListenersEvent event, Supplier<ModDatapack<A, B>> factory) {
         ModDatapack<A, B> datapack = factory.get();
         DatapackKey<B> datapackKey = datapack.key();
 
-        event.addListener(datapack);
+        event.addListener(datapackKey.id(), datapack);
         DATAPACKS.put(datapackKey, datapack);
         Datapacks.LOGGER.debug("Registered datapack {}", datapackKey);
     }
