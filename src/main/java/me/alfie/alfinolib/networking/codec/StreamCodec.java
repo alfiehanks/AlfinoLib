@@ -28,4 +28,10 @@ public interface StreamCodec<B extends ByteBuf, V> {
             }
         };
     }
+
+    /** Narrows the buffer type. Safe when {@code O} is a subtype of {@code B}. */
+    @SuppressWarnings("unchecked")
+    default <O extends B> StreamCodec<O, V> cast() {
+        return (StreamCodec<O, V>) this;
+    }
 }
