@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import io.netty.buffer.ByteBuf;
 import me.alfie.alfinolib.AlfinoLib;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
+import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +28,7 @@ public final class Networking {
 
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            ResourceLocation.fromNamespaceAndPath(AlfinoLib.MODID, "main"),
+            new ResourceId(AlfinoLib.MODID, "main").mc(),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals

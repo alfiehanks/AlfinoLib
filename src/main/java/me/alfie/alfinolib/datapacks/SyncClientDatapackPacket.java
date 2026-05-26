@@ -1,5 +1,6 @@
 package me.alfie.alfinolib.datapacks;
 
+import me.alfie.alfinolib.AlfinoLib;
 import me.alfie.alfinolib.networking.NetworkPacket;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.networking.codec.StreamCodecBuilder;
@@ -18,4 +19,5 @@ public record SyncClientDatapackPacket(DataMap dataMap) implements NetworkPacket
         ClientDatapackManager.setDataMap(dataMap());
         Datapacks.LOGGER.info("Received sync packet on client, updated ClientDatapackManager.");
     }
+
 }
