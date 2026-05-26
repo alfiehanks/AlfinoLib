@@ -18,7 +18,7 @@ public final class DatapackRegistry {
         ModDatapack<A, B> datapack = factory.get();
         DatapackKey<B> datapackKey = datapack.key();
 
-        event.addListener(datapackKey.id(), datapack);
+        event.addListener(datapackKey.id().mc(), datapack);
         DATAPACKS.put(datapackKey, datapack);
         Datapacks.LOGGER.debug("Registered datapack {}", datapackKey);
     }
