@@ -3,11 +3,11 @@ package me.alfie.alfinolib.datapacks;
 import me.alfie.alfinolib.networking.Networking;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,13 +86,13 @@ public final class ServerDatapackManager {
         }
 
         getInstance().dataMap = new DataMap(result);
-        MinecraftForge.EVENT_BUS.post(new ServerDatapackUpdatedEvent(getInstance().getServer()));
+        NeoForge.EVENT_BUS.post(new ServerDatapackUpdatedEvent(getInstance().getServer()));
     }
 
     private static void sendSyncPacket(ServerPlayer player) {
         Datapacks.LOGGER.debug("Sending sync packet to {}", player);
 
-        Networking.sendToClient(new SyncClientDatapackPacket(getInstance().dataMap), player);
+        Networking.sendToClient(player, new SyncClientDatapackPacket(getInstance().dataMap));
     }
 
 

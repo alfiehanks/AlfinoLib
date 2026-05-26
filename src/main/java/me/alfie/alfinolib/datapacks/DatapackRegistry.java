@@ -1,9 +1,9 @@
 package me.alfie.alfinolib.datapacks;
 
 
-import com.mojang.logging.LogUtils;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import org.slf4j.Logger;
+
+
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 
 import java.util.HashMap;
 import java.util.Map;

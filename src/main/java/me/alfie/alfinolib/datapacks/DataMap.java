@@ -3,6 +3,7 @@ package me.alfie.alfinolib.datapacks;
 
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public record DataMap(Map<DatapackKey<?>, Object> map) {
 
-    public static final StreamCodec<FriendlyByteBuf, DataMap> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, DataMap> STREAM_CODEC =
             StreamCodec.of(DataMap::encode, DataMap::decode);
 
     public DataMap {
@@ -23,7 +24,7 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> void encode(FriendlyByteBuf buf, DataMap dataMap) {
+    public static <T> void encode(RegistryFriendlyByteBuf buf, DataMap dataMap) {
         buf.writeInt(dataMap.map().size());
 
         for(Map.Entry<DatapackKey<?>, Object> entry : dataMap.map().entrySet()) {
@@ -33,12 +34,12 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
             DatapackKey.STREAM_CODEC.encode(buf, key);
             ModDatapack<?, T> datapack = DatapackRegistry.get(key);
 
-            StreamCodec<FriendlyByteBuf, T> streamCodec = datapack.streamCodec();
+            StreamCodec<RegistryFriendlyByteBuf, T> streamCodec = datapack.streamCodec();
             streamCodec.encode(buf, value);
         }
     }
 
-    public static DataMap decode(FriendlyByteBuf buf) {
+    public static DataMap decode(RegistryFriendlyByteBuf buf) {
         int size = buf.readInt();
         Map<DatapackKey<?>, Object> result = new HashMap<>();
 
@@ -46,7 +47,7 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
             DatapackKey<?> datapackKey = DatapackKey.STREAM_CODEC.decode(buf);
             ModDatapack<?, ?> datapack = DatapackRegistry.get(datapackKey);
 
-            StreamCodec<FriendlyByteBuf, ?> streamCodec = datapack.streamCodec();
+            StreamCodec<RegistryFriendlyByteBuf, ?> streamCodec = datapack.streamCodec();
             Object value = streamCodec.decode(buf);
             result.put(datapackKey, value);
         }

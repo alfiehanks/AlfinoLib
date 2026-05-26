@@ -28,4 +28,9 @@ public interface StreamCodec<B extends ByteBuf, V> {
             }
         };
     }
+
+    /** Return a net.minecraft.network.codec.StreamCodec<B,V> based on this API StreamCodec.*/
+    default net.minecraft.network.codec.StreamCodec<B, V> toMinecraftStreamCodec() {
+        return net.minecraft.network.codec.StreamCodec.of(this::encode, this::decode);
+    }
 }

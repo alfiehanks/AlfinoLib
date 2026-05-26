@@ -1,7 +1,7 @@
 package me.alfie.alfinolib.datapacks;
 
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.bus.api.Event;
 
 /**
  * Event that fires after {@link ServerDatapackManager} finishes pulling data and has built the {@link DataMap}.

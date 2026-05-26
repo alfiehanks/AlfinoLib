@@ -2,8 +2,11 @@ package me.alfie.alfinolib.networking;
 
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.event.IModBusEvent;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 /**
  * Event to register packets. Posted during FMLCommonSetupEvent
@@ -11,18 +14,25 @@ import net.minecraftforge.fml.event.IModBusEvent;
 public class NetworkRegisterEvent extends Event implements IModBusEvent {
 
     private final PacketRegistrar registrar;
+    private final PayloadRegistrar payloadRegistrar;
 
-    public NetworkRegisterEvent(PacketRegistrar registrar) {
+    public NetworkRegisterEvent(PacketRegistrar registrar, PayloadRegistrar payloadRegistrar) {
         this.registrar = registrar;
+        this.payloadRegistrar = payloadRegistrar;
     }
 
-    public <P extends NetworkPacket<P>> void register(Class<P> type, StreamCodec<FriendlyByteBuf, P> codec) {
-        registrar.register(type, codec);
+    public <P extends NetworkPacket<P>> void register(Networking.Side playToSide,
+                                                      CustomPacketPayload.Type<P> type,
+                                                      StreamCodec<RegistryFriendlyByteBuf, P> codec) {
+        registrar.register(playToSide, type, codec, payloadRegistrar);
     }
 
     @FunctionalInterface
     public interface PacketRegistrar {
-        <P extends NetworkPacket<P>> void register(Class<P> type, StreamCodec<FriendlyByteBuf, P> codec);
+        <P extends NetworkPacket<P>> void register(Networking.Side playToSide,
+                                                   CustomPacketPayload.Type<P> type,
+                                                   StreamCodec<RegistryFriendlyByteBuf, P> codec,
+                                                   PayloadRegistrar payloadRegistrar);
     }
 
 

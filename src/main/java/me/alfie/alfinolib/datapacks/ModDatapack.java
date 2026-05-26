@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -23,17 +24,17 @@ import java.util.Map;
 public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener {
 
     private final DatapackKey<B> datapackKey;
-    private final StreamCodec<FriendlyByteBuf, B> streamCodec;
+    private final StreamCodec<RegistryFriendlyByteBuf, B> streamCodec;
     private final Codec<A> codec;
 
-    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<FriendlyByteBuf, B> streamCodec) {
+    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<RegistryFriendlyByteBuf, B> streamCodec) {
         super(new Gson(), datapackKey.directory());
         this.datapackKey = datapackKey;
         this.streamCodec = streamCodec;
         this.codec = codec;
     }
 
-    public StreamCodec<FriendlyByteBuf, B> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, B> streamCodec() {
         return streamCodec;
     }
 

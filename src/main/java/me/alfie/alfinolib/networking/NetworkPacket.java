@@ -1,8 +1,9 @@
 package me.alfie.alfinolib.networking;
 
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public interface NetworkPacket<P> {
+public interface NetworkPacket<P extends CustomPacketPayload> extends CustomPacketPayload {
 
-    void exec(NetworkEvent.Context context);
+    void exec(IPayloadContext context);
 }

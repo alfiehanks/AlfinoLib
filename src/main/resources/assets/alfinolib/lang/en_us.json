@@ -1,0 +1,13 @@
+{
+  "itemGroup.alfinolib": "Example Mod Tab",
+  "block.alfinolib.example_block": "Example Block",
+  "item.alfinolib.example_item": "Example Item",
+
+  "alfinolib.configuration.title": "AlfinoLib Configs",
+  "alfinolib.configuration.section.alfinolib.common.toml": "AlfinoLib Configs",
+  "alfinolib.configuration.section.alfinolib.common.toml.title": "AlfinoLib Configs",
+  "alfinolib.configuration.items": "Item List",
+  "alfinolib.configuration.logDirtBlock": "Log Dirt Block",
+  "alfinolib.configuration.magicNumberIntroduction": "Magic Number Text",
+  "alfinolib.configuration.magicNumber": "Magic Number"
+}
