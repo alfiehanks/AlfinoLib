@@ -1,6 +1,7 @@
 package me.alfie.alfinolib.datapacks;
 
 import me.alfie.alfinolib.networking.codec.StreamCodec;
+import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -25,8 +26,8 @@ public record DatapackKey<T> (String modid, String directory) {
         return new DatapackKey<>(modid, dir);
     }
 
-    public ResourceLocation id() {
-        return ResourceLocation.fromNamespaceAndPath(modid, directory);
+    public ResourceId id() {
+        return new ResourceId(modid, directory);
     }
 
 }
