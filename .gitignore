@@ -28,6 +28,10 @@ bin/
 
 ### VS Code ###
 .vscode/
+# other
+eclipse
+run
+build-all.sh
 
 ### Mac OS ###
 .DS_Store
