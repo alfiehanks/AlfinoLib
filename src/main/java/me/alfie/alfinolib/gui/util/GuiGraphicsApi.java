@@ -63,7 +63,7 @@ public final class GuiGraphicsApi {
     }
 
     /**
-     * Renders and ItemStack item with its number.
+     * Renders an ItemStack item with its number. For ItemStack's with tooltip on hover, use itemStackWithTooltip() instead.
      * @param graphics GuiGraphicsX from CommonAbstractContainerScreen
      * @param stack ItemStack to render
      * @param font Font from Screen
@@ -73,5 +73,21 @@ public final class GuiGraphicsApi {
     public static void itemStack(GuiGraphicsX graphics, ItemStack stack, Font font, int x, int y) {
         graphics.item(stack, x, y);
         graphics.itemDecorations(font, stack, x, y);
+    }
+
+    /**
+     * Renders an ItemStack item with its number, and shows the item tooltip when hovered over.
+     * @param graphics GuiGraphicsX from CommonAbstractContainerScreen
+     * @param stack ItemStack to render
+     * @param font Font from Screen
+     * @param x X position
+     * @param y Y position
+     * @param mousePos Mouse position
+     */
+    public static void itemStackWithTooltip(GuiGraphicsX graphics, ItemStack stack, Font font, int x, int y, MousePos mousePos) {
+        itemStack(graphics, stack, font, x, y);
+        if (mousePos.isOver(x, y, 16, 16)) {
+            graphics.setTooltipForNextFrame(font, stack, mousePos.x(), mousePos.y());
+        }
     }
 }
