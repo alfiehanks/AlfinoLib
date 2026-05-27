@@ -3,6 +3,7 @@ package me.alfie.alfinolib.datapacks;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 
 /**
@@ -13,14 +14,15 @@ import net.minecraft.resources.Identifier;
  */
 public record DatapackKey<T> (String modid, String directory) {
 
-    public static final StreamCodec<FriendlyByteBuf, DatapackKey<?>> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, DatapackKey<?>> STREAM_CODEC =
             StreamCodec.of(DatapackKey::encode, DatapackKey::decode);
 
-    private static void encode(FriendlyByteBuf buf, DatapackKey<?> datapackKey) {
+    private static void encode(RegistryFriendlyByteBuf buf, DatapackKey<?> datapackKey) {
         buf.writeUtf(datapackKey.modid());
+        buf.writeUtf(datapackKey.directory());
     }
 
-    private static DatapackKey<?> decode(FriendlyByteBuf buf) {
+    private static DatapackKey<?> decode(RegistryFriendlyByteBuf buf) {
         String modid = buf.readUtf();
         String dir = buf.readUtf();
         return new DatapackKey<>(modid, dir);
