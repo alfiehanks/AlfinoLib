@@ -16,7 +16,7 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 tasks.named('jar') {
-    archiveVersion = "${mod_version}-neoforge-${minecraft_version}"
+    archiveVersion = "${mod_version}-forge-${minecraft_version}"
 }
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
