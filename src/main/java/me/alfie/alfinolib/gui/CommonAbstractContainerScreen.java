@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.MouseButtonInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -91,7 +92,8 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseClick(MousePos mousePos, int button) {
-        return ScreenEventListener.super.onMouseClick(mousePos, button);
+        return super.mouseClicked(new MouseButtonEvent(mousePos.x(), mousePos.y(),
+                new MouseButtonInfo(button, 0)), false);
     }
 
     @Override
@@ -101,7 +103,8 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseDrag(MousePos mousePos, int button, double dx, double dy) {
-        return ScreenEventListener.super.onMouseDrag(mousePos, button, dx, dy);
+        return super.mouseDragged(new MouseButtonEvent(mousePos.x(), mousePos.y(),
+                new MouseButtonInfo(button, 0)), dx, dy);
     }
 
     @Override
@@ -111,7 +114,8 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseRelease(MousePos mousePos, int button) {
-        return ScreenEventListener.super.onMouseRelease(mousePos, button);
+        return super.mouseReleased(new MouseButtonEvent(mousePos.x(), mousePos.y(),
+                new MouseButtonInfo(button, 0)));
     }
 
     @Override
@@ -121,7 +125,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseScrolled(MousePos mousePos, double scrollY) {
-        return ScreenEventListener.super.onMouseScrolled(mousePos, scrollY);
+        return super.mouseScrolled(mousePos.x(), mousePos.x(), 0, scrollY);
     }
 
     //Keyboard events
@@ -133,7 +137,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onKeyPress(int keyCode, int scanCode, int modifiers) {
-        return ScreenEventListener.super.onKeyPress(keyCode, scanCode, modifiers);
+        return super.keyPressed(new KeyEvent(keyCode, scanCode, modifiers));
     }
 
     @Override
@@ -142,13 +146,13 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
     }
 
     /**
-     * Note: NeoForge 26.1 does not use modifiers - modifiers is always a dummy value in this version.
+     * Note: NeoForge 26.1 does not use modifiers - modifiers is ignored in this version.
      * @param codePoint Character typed
      * @param modifiers Modifiers i.e shift
      * @return true if press captured
      */
     @Override
     public boolean onCharTyped(char codePoint, int modifiers) {
-        return ScreenEventListener.super.onCharTyped(codePoint, modifiers);
+        return super.charTyped(new CharacterEvent(codePoint));
     }
 }
