@@ -30,8 +30,7 @@ bin/
 eclipse
 run
 build-all.sh
-### VS Code ###
-.vscode/
+scripts/
 
 ### Mac OS ###
 .DS_Store
