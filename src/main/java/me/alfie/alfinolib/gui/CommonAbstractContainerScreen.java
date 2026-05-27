@@ -35,13 +35,13 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     protected final void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        renderBackground((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY), partialTick);
+        renderBackground(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY), partialTick);
     }
 
     /**
      * Common renderBackground method.
      */
-    public void renderBackground(GuiGraphicsX graphics, MousePos mousePos, float partialTick) {
+    public void renderBackground(GuiGraphicsX gx, MousePos mousePos, float partialTick) {
     }
 
     /*
@@ -50,14 +50,14 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     public final void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        render((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY), partialTick);
+        render(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY), partialTick);
     }
 
     /**
      * Common render method.
      */
-    public void render(GuiGraphicsX graphics, MousePos mousePos, float partialTick) {
-        super.render(graphics, mousePos.x(), mousePos.y(), partialTick);
+    public void render(GuiGraphicsX gx, MousePos mousePos, float partialTick) {
+        super.render(gx.graphics(), mousePos.x(), mousePos.y(), partialTick);
     }
 
     /*
@@ -66,14 +66,14 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     protected final void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
-        renderLabels((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY));
+        renderLabels(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY));
     }
 
     /**
      * Common renderLabels method.
      */
-    public void renderLabels(GuiGraphicsX graphics, MousePos mousePos) {
-        super.renderLabels(graphics, mousePos.x(), mousePos.y());
+    public void renderLabels(GuiGraphicsX gx, MousePos mousePos) {
+        super.renderLabels(gx.graphics(), mousePos.x(), mousePos.y());
     }
 
     /*
