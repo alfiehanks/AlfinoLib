@@ -3,7 +3,6 @@ package me.alfie.alfinolib.datapacks;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 
 /**
  * This key is used to register datapacks, retrieve data from {@link DataMap} and look up the corresponding {@link ModDatapack}.
@@ -18,6 +17,7 @@ public record DatapackKey<T> (String modid, String directory) {
 
     private static void encode(FriendlyByteBuf buf, DatapackKey<?> datapackKey) {
         buf.writeUtf(datapackKey.modid());
+        buf.writeUtf(datapackKey.directory());
     }
 
     private static DatapackKey<?> decode(FriendlyByteBuf buf) {
