@@ -36,14 +36,14 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     public final void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY), partialTick);
+        renderBackground(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY), partialTick);
     }
 
     /**
      * Common renderBackground method.
      */
-    public void renderBackground(GuiGraphicsX graphics, MousePos mousePos, float partialTick) {
-        super.extractBackground(graphics, mousePos.x(), mousePos.y(), partialTick);
+    public void renderBackground(GuiGraphicsX gx, MousePos mousePos, float partialTick) {
+        super.extractBackground(gx.graphics(), mousePos.x(), mousePos.y(), partialTick);
     }
 
     /*
@@ -52,14 +52,14 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     public final void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        render((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY), partialTick);
+        render(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY), partialTick);
     }
 
     /**
      * Common render method.
      */
-    public void render(GuiGraphicsX graphics, MousePos mousePos, float partialTick) {
-        super.extractRenderState(graphics, mousePos.x(), mousePos.y(), partialTick);
+    public void render(GuiGraphicsX gx, MousePos mousePos, float partialTick) {
+        super.extractRenderState(gx.graphics(), mousePos.x(), mousePos.y(), partialTick);
     }
 
     /*
@@ -68,14 +68,14 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     protected final void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-        renderLabels((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY));
+        renderLabels(new GuiGraphicsX(graphics), new MousePos(mouseX, mouseY));
     }
 
     /**
      * Common renderLabels method.
      */
-    public void renderLabels(GuiGraphicsX graphics, MousePos mousePos) {
-        super.extractLabels(graphics, mousePos.x(), mousePos.y());
+    public void renderLabels(GuiGraphicsX gx, MousePos mousePos) {
+        super.extractLabels(gx.graphics(), mousePos.x(), mousePos.y());
     }
 
     /*
