@@ -21,6 +21,7 @@ build
 eclipse
 run
 build-all.sh
+scripts/
 
 # Files from Forge MDK
 forge*changelog.txt
