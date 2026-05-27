@@ -34,7 +34,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
     > 26.1 = extractBackground
      */
     @Override
-    public final void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    protected final void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         renderBackground((GuiGraphicsX) graphics, new MousePos(mouseX, mouseY), partialTick);
     }
 
@@ -42,7 +42,6 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      * Common renderBackground method.
      */
     public void renderBackground(GuiGraphicsX graphics, MousePos mousePos, float partialTick) {
-        super.renderBackground(graphics, mousePos.x(), mousePos.y(), partialTick);
     }
 
     /*
@@ -112,6 +111,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
     public boolean onMouseRelease(MousePos mousePos, int button) {
         return ScreenEventListener.super.onMouseRelease(mousePos, button);
     }
+
 
     @Override
     public final boolean mouseScrolled(double x, double y, double scrollX, double scrollY) {
