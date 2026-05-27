@@ -32,6 +32,7 @@ bin/
 eclipse
 run
 build-all.sh
+scripts/
 
 ### Mac OS ###
 .DS_Store
