@@ -89,7 +89,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseClick(MousePos mousePos, int button) {
-        return ScreenEventListener.super.onMouseClick(mousePos, button);
+        return super.mouseClicked(mousePos.x(), mousePos.x(), button);
     }
 
     @Override
@@ -99,7 +99,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseDrag(MousePos mousePos, int button, double dx, double dy) {
-        return ScreenEventListener.super.onMouseDrag(mousePos, button, dx, dy);
+        return super.mouseDragged(mousePos.x(), mousePos.x(), button, dx, dy);
     }
 
     @Override
@@ -109,7 +109,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseRelease(MousePos mousePos, int button) {
-        return ScreenEventListener.super.onMouseRelease(mousePos, button);
+        return super.mouseReleased(mousePos.x(), mousePos.y(), button);
     }
 
     @Override
@@ -119,7 +119,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseScrolled(MousePos mousePos, double scrollY) {
-        return ScreenEventListener.super.onMouseScrolled(mousePos, scrollY);
+        return super.mouseScrolled(mousePos.x(), mousePos.x(), scrollY);
     }
 
     //Keyboard events
@@ -131,7 +131,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onKeyPress(int keyCode, int scanCode, int modifiers) {
-        return ScreenEventListener.super.onKeyPress(keyCode, scanCode, modifiers);
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
@@ -147,6 +147,6 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     public boolean onCharTyped(char codePoint, int modifiers) {
-        return ScreenEventListener.super.onCharTyped(codePoint, modifiers);
+        return super.charTyped(codePoint, modifiers);
     }
 }
