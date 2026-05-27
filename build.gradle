@@ -34,6 +34,10 @@ base {
     archivesName = mod_id
 }
 
+tasks.named('jar') {
+    archiveVersion = "${mod_version}-neoforge-${minecraft_version}"
+}
+
 // Mojang ships Java 25 to end users in 26.1, so mods should target Java 25.
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
