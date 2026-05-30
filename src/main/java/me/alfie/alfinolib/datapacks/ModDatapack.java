@@ -5,7 +5,9 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -25,12 +27,14 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
     private final DatapackKey<B> datapackKey;
     private final StreamCodec<FriendlyByteBuf, B> streamCodec;
     private final Codec<A> codec;
+    private final RegistryAccess registryAccess;
 
-    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<FriendlyByteBuf, B> streamCodec) {
+    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<FriendlyByteBuf, B> streamCodec, RegistryAccess registryAccess) {
         super(new Gson(), datapackKey.directory());
         this.datapackKey = datapackKey;
         this.streamCodec = streamCodec;
         this.codec = codec;
+        this.registryAccess = registryAccess;
     }
 
     public StreamCodec<FriendlyByteBuf, B> streamCodec() {
@@ -54,7 +58,7 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
      * @return data of type {@link A}
      */
     public A parseOrDefault(JsonElement element, A defaultValue) {
-        return codec.parse(JsonOps.INSTANCE, element)
+        return codec.parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess), element)
                 .resultOrPartial(error -> Datapacks.LOGGER.error("Failed to parse JSON for datapack {}: {}", datapackKey, error))
                 .orElse(defaultValue);
     }

@@ -8,7 +8,7 @@ import me.alfie.alfinolib.datapacks.DatapackRegistry;
 import me.alfie.alfinolib.datapacks.ModDatapack;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.util.codec.ItemCost;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -23,8 +23,8 @@ public class TestDatapack extends ModDatapack<ItemCost, ItemCost> {
     ItemCost DATA;
 
 
-    public TestDatapack() {
-        super(ItemCost.CODEC, KEY, ItemCost.STREAM_CODEC);
+    public TestDatapack(RegistryAccess registryAccess) {
+        super(ItemCost.CODEC, KEY, ItemCost.STREAM_CODEC, registryAccess);
     }
 
     @Override
@@ -39,6 +39,6 @@ public class TestDatapack extends ModDatapack<ItemCost, ItemCost> {
     }
 
     public static void register(AddReloadListenerEvent event) {
-        DatapackRegistry.register(event, TestDatapack::new);
+        DatapackRegistry.register(event, () -> new TestDatapack(event.getRegistryAccess()));
     }
 }
