@@ -118,6 +118,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
                 new MouseButtonInfo(button, 0)));
     }
 
+
     @Override
     public final boolean mouseScrolled(double x, double y, double scrollX, double scrollY) {
         return onMouseScrolled(new MousePos((int) x, (int) y), scrollY);
@@ -125,7 +126,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseScrolled(MousePos mousePos, double scrollY) {
-        return super.mouseScrolled(mousePos.x(), mousePos.x(), 0, scrollY);
+        return super.mouseScrolled(mousePos.x(), mousePos.y(), 0, scrollY);
     }
 
     //Keyboard events

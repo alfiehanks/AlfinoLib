@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 /**
  * Calls to GuiGraphics/GuiGraphicsExtractor that aim to stay the same between all versions, uses GuiGraphicsX.
  * <br> Note: You can still use the GuiGraphicsX instance directly if there are no matching use-cases here.
@@ -89,5 +91,36 @@ public final class GuiGraphicsApi {
         if (mousePos.isOver(x, y, 16, 16)) {
             gx.graphics().setTooltipForNextFrame(font, stack, mousePos.x(), mousePos.y());
         }
+    }
+
+
+    /**
+     * Renders an ItemStack item with its number, and shows the item tooltip when hovered over.
+     * This method cycles through a list of item stack, changing the stack displayed based on cycleSpeed.
+     * @param gx GuiGraphicsX from CommonAbstractContainerScreen
+     * @param stack List of ItemStacks to render
+     * @param font Font from Screen
+     * @param x X position
+     * @param y Y position
+     * @param mousePos Mouse position
+     * @param cycleSpeed How fast the stack cycles
+     */
+    public static void itemStackWithTooltipCycled(GuiGraphicsX gx, List<ItemStack> stack, Font font, int x, int y, MousePos mousePos, int cycleSpeed) {
+        itemStackWithTooltip(gx, getCycledElement(stack, cycleSpeed), font, x, y, mousePos);
+    }
+
+    /**
+     * Returns an element within the list.
+     * @param list List to cycle through
+     * @param speed Speed of cycling through list in ms.
+     * @return Element from list, determined by speed.
+     */
+    public static <T> T getCycledElement(List<T> list, int speed) {
+        if (list == null || list.isEmpty()) return null;
+
+        long currentTime = System.currentTimeMillis();
+        int index = (int) ((currentTime / speed) % list.size());
+
+        return list.get(index);
     }
 }
