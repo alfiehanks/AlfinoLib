@@ -89,7 +89,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseClick(MousePos mousePos, int button) {
-        return super.mouseClicked(mousePos.x(), mousePos.x(), button);
+        return super.mouseClicked(mousePos.x(), mousePos.y(), button);
     }
 
     @Override
@@ -99,7 +99,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseDrag(MousePos mousePos, int button, double dx, double dy) {
-        return super.mouseDragged(mousePos.x(), mousePos.x(), button, dx, dy);
+        return super.mouseDragged(mousePos.x(), mousePos.y(), button, dx, dy);
     }
 
     @Override
@@ -112,6 +112,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
         return super.mouseReleased(mousePos.x(), mousePos.y(), button);
     }
 
+
     @Override
     public final boolean mouseScrolled(double x, double y, double scrollY) {
         return onMouseScrolled(new MousePos((int) x, (int) y), scrollY);
@@ -119,7 +120,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseScrolled(MousePos mousePos, double scrollY) {
-        return super.mouseScrolled(mousePos.x(), mousePos.x(), scrollY);
+        return super.mouseScrolled(mousePos.x(), mousePos.y(), 0, scrollY);
     }
 
     //Keyboard events
@@ -135,7 +136,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
     }
 
     @Override
-    public boolean charTyped(char codePoint, int modifiers) {
+    public final boolean charTyped(char codePoint, int modifiers) {
         return onCharTyped(codePoint, modifiers);
     }
 
