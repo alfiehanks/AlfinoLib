@@ -1,0 +1,14 @@
+{
+  "tag": "minecraft:logs",
+  "count": 1,
+  "nbt": {
+    "Damage": 0,
+    "display": {
+      "Name": "{\"text\":\"Test Sword\",\"color\":\"aqua\"}"
+    },
+    "Enchantments": [
+      {"id": "minecraft:sharpness", "lvl": 5},
+      {"id": "minecraft:unbreaking", "lvl": 3}
+    ]
+  }
+}

@@ -115,6 +115,7 @@ public final class GuiGraphicsApi {
      */
     public static <T> T getCycledElement(List<T> list, int speed) {
         if (list == null || list.isEmpty()) return null;
+        if (speed <= 0) return list.get(0);
 
         long currentTime = System.currentTimeMillis();
         int index = (int) ((currentTime / speed) % list.size());
