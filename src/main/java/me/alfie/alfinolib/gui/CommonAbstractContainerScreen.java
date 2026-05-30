@@ -120,7 +120,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public boolean onMouseScrolled(MousePos mousePos, double scrollY) {
-        return super.mouseScrolled(mousePos.x(), mousePos.y(), 0, scrollY);
+        return super.mouseScrolled(mousePos.x(), mousePos.y(), scrollY);
     }
 
     //Keyboard events
