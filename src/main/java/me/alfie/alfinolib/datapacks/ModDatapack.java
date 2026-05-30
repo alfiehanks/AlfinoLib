@@ -3,6 +3,8 @@ package me.alfie.alfinolib.datapacks;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.RegistryAccess;
+import org.jetbrains.annotations.Nullable;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.FileToIdConverter;
@@ -24,11 +26,13 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
 
     private final DatapackKey<B> datapackKey;
     private final StreamCodec<RegistryFriendlyByteBuf, B> streamCodec;
+    private final RegistryAccess registryAccess;
 
-    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<RegistryFriendlyByteBuf, B> streamCodec) {
+    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<RegistryFriendlyByteBuf, B> streamCodec, RegistryAccess registryAccess) {
         super(codec, FileToIdConverter.json(datapackKey.directory()));
         this.datapackKey = datapackKey;
         this.streamCodec = streamCodec;
+        this.registryAccess = registryAccess;
     }
 
     public StreamCodec<RegistryFriendlyByteBuf, B> streamCodec() {
@@ -40,6 +44,11 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
     }
 
     public abstract B getData();
+
+    /** Returns value if non-null, otherwise defaultValue. Mirrors the parseOrDefault signature on older branches. */
+    public A parseOrDefault(@Nullable A value, A defaultValue) {
+        return value != null ? value : defaultValue;
+    }
 
     @Override
     protected void apply(@NotNull Map<Identifier, A> identifierAMap, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {}

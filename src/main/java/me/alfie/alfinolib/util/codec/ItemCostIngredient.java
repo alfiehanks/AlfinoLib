@@ -7,10 +7,11 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.MapLike;
 import com.mojang.serialization.RecordBuilder;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -35,7 +36,7 @@ public sealed interface ItemCostIngredient
     // ---- codecs ----
 
     Codec<Item> ITEM_CODEC = BuiltInRegistries.ITEM.byNameCodec();
-    Codec<TagKey<Item>> TAG_KEY_CODEC = ResourceLocation.CODEC
+    Codec<TagKey<Item>> TAG_KEY_CODEC = Identifier.CODEC
             .xmap(rl -> TagKey.create(Registries.ITEM, rl), TagKey::location);
 
     /**
@@ -81,33 +82,31 @@ public sealed interface ItemCostIngredient
             (buf, ingredient) -> {
                 if (ingredient instanceof SingleItem s) {
                     buf.writeByte(0);
-                    buf.writeResourceLocation(BuiltInRegistries.ITEM.getKey(s.item()));
+                    buf.writeIdentifier(BuiltInRegistries.ITEM.getKey(s.item()));
                 } else if (ingredient instanceof ItemList l) {
                     buf.writeByte(1);
                     buf.writeVarInt(l.items().size());
                     for (Item item : l.items()) {
-                        buf.writeResourceLocation(BuiltInRegistries.ITEM.getKey(item));
+                        buf.writeIdentifier(BuiltInRegistries.ITEM.getKey(item));
                     }
                 } else if (ingredient instanceof TagIngredient t) {
                     buf.writeByte(2);
-                    buf.writeResourceLocation(t.tag().location());
+                    buf.writeIdentifier(t.tag().location());
                 }
             },
             buf -> {
                 byte type = buf.readByte();
                 if (type == 0) {
-                    Item item = BuiltInRegistries.ITEM.get(buf.readResourceLocation());
-                    return new SingleItem(item != null ? item : Items.AIR);
+                    return new SingleItem(BuiltInRegistries.ITEM.get(buf.readIdentifier()).map(Holder.Reference::value).orElse(Items.AIR));
                 } else if (type == 1) {
                     int size = buf.readVarInt();
                     List<Item> items = new ArrayList<>(size);
                     for (int i = 0; i < size; i++) {
-                        Item item = BuiltInRegistries.ITEM.get(buf.readResourceLocation());
-                        items.add(item != null ? item : Items.AIR);
+                        items.add(BuiltInRegistries.ITEM.get(buf.readIdentifier()).map(Holder.Reference::value).orElse(Items.AIR));
                     }
                     return new ItemList(items);
                 } else if (type == 2) {
-                    return new TagIngredient(TagKey.create(Registries.ITEM, buf.readResourceLocation()));
+                    return new TagIngredient(TagKey.create(Registries.ITEM, buf.readIdentifier()));
                 }
                 throw new IllegalStateException("Unknown ingredient type byte: " + type);
             }

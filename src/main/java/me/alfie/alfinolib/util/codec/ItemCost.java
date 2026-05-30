@@ -59,7 +59,7 @@ public record ItemCost(ItemCostIngredient ingredient, int count, Optional<ItemDa
         } else if (ingredient instanceof ItemCostIngredient.ItemList l) {
             return List.copyOf(l.items());
         } else if (ingredient instanceof ItemCostIngredient.TagIngredient t) {
-            Optional<HolderSet.Named<Item>> holders = BuiltInRegistries.ITEM.getTag(t.tag());
+            Optional<HolderSet.Named<Item>> holders = BuiltInRegistries.ITEM.get(t.tag());
             if (holders.isEmpty()) {
                 LOGGER.warn("ItemCost: tag '{}' could not be resolved - please wait for TagsUpdated before getting items, returning empty list", t.tag().location());
             }
