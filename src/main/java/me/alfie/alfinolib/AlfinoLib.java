@@ -26,14 +26,6 @@ public class AlfinoLib {
         IEventBus modEventBus = context.getModEventBus();
         Networking.init(modEventBus);
         Datapacks.init(modEventBus);
-
-        MinecraftForge.EVENT_BUS.addListener(TestDatapack::register);
-        MinecraftForge.EVENT_BUS.addListener(AlfinoLib::onJoin);
-    }
-
-    public static void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        LOGGER.debug("Got data: {}", DatapackRegistry.get(TestDatapack.KEY).getData().getItemStacks());
-        event.getEntity().getInventory().add(DatapackRegistry.get(TestDatapack.KEY).getData().getItemStacks().get(0));
     }
 
 }
