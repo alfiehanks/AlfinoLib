@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public final class GuiGraphicsApi {
      * @param dropShadow Whether or not to render the shadow behind the text (usually false in GUI screens)
      */
     public static void text(GuiGraphicsX gx, Font font, Component component, int x, int y, boolean dropShadow) {
-        gx.graphics().text(font, component, x, y, 0xFFFFFF, dropShadow);
+        gx.graphics().text(font, component, x, y, Color.WHITE.getRGB(), dropShadow);
     }
 
     /**
