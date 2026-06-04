@@ -4,7 +4,7 @@ import me.alfie.alfinolib.gui.util.MousePos;
 
 public interface ScreenEventListener {
 
-    default boolean onMouseClick(MousePos mousePos, int button) {
+    default boolean onMouseClick(MousePos mousePos, int button, int modifiers) {
         return false;
     }
 

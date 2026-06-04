@@ -87,13 +87,13 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
      */
     @Override
     public final boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
-        return onMouseClick(new MousePos((int) event.x(), (int) event.y()), event.button());
+        return onMouseClick(new MousePos((int) event.x(), (int) event.y()), event.button(), event.modifiers());
     }
 
     @Override
-    public boolean onMouseClick(MousePos mousePos, int button) {
+    public boolean onMouseClick(MousePos mousePos, int button, int modifiers) {
         return super.mouseClicked(new MouseButtonEvent(mousePos.x(), mousePos.y(),
-                new MouseButtonInfo(button, 0)), false);
+                new MouseButtonInfo(button, modifiers)), false);
     }
 
     @Override
