@@ -48,8 +48,13 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
             ModDatapack<?, ?> datapack = DatapackRegistry.get(datapackKey);
 
             StreamCodec<RegistryFriendlyByteBuf, ?> streamCodec = datapack.streamCodec();
-            Object value = streamCodec.decode(buf);
-            result.put(datapackKey, value);
+
+            try {
+                Object value = streamCodec.decode(buf);
+                result.put(datapackKey, value);
+            } catch (Exception e) {
+                throw new IllegalStateException("Failed decoding key " + datapackKey + " using codec " + datapack.streamCodec().getClass().getName(), e);
+            }
         }
 
         return new DataMap(result);
