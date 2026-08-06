@@ -1,5 +1,7 @@
-package me.alfie.alfinolib.datapacks;
+package me.alfie.alfinolib.datapacks.server;
 
+import me.alfie.alfinolib.AlfinoLib;
+import me.alfie.alfinolib.datapacks.*;
 import me.alfie.alfinolib.networking.Networking;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -80,7 +82,7 @@ public final class ServerDatapackManager {
     private static void pullData() {
         Map<DatapackKey<?>, Object> result = new HashMap<>();
 
-        for (Map.Entry<DatapackKey<?>, ModDatapack<?, ?>> entry : DatapackRegistry.entrySet()) {
+        for (Map.Entry<DatapackKey<?>, ModDatapack<?, ?>> entry : ServerDatapackRegistry.entrySet()) {
             ModDatapack<?, ?> datapack = entry.getValue();
             result.put(entry.getKey(), datapack.getData());
             Datapacks.LOGGER.debug("Successfully pulled data for {}", datapack);

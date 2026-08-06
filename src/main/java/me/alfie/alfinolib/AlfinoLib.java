@@ -1,6 +1,8 @@
 package me.alfie.alfinolib;
 
 import com.mojang.logging.LogUtils;
+import me.alfie.alfinolib.datapacks.DatapackDefinition;
+import me.alfie.alfinolib.datapacks.DatapackRegistry;
 import me.alfie.alfinolib.datapacks.Datapacks;
 import me.alfie.alfinolib.debug.DebugCommands;
 import me.alfie.alfinolib.debug.datapack.TestData;
@@ -22,7 +24,7 @@ public class AlfinoLib {
         Networking.init(modEventBus);
         Datapacks.init(modEventBus);
 
-
+        DatapackRegistry.register(TestDatapack.DEFINITION);
 
         NeoForge.EVENT_BUS.addListener(TestDatapack::register);
         NeoForge.EVENT_BUS.addListener(DebugCommands::register);

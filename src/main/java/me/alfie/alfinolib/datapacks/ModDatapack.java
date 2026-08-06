@@ -24,25 +24,23 @@ import java.util.Map;
  */
 public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener {
 
-    private final DatapackKey<B> datapackKey;
-    private final StreamCodec<FriendlyByteBuf, B> streamCodec;
+    private final DatapackDefinition<B> definition;
     private final Codec<A> codec;
     private final RegistryAccess registryAccess;
 
-    public ModDatapack(Codec<A> codec, DatapackKey<B> datapackKey, StreamCodec<FriendlyByteBuf, B> streamCodec, RegistryAccess registryAccess) {
-        super(new Gson(), datapackKey.directory());
-        this.datapackKey = datapackKey;
-        this.streamCodec = streamCodec;
+    public ModDatapack(Codec<A> codec, DatapackDefinition<B> definition, RegistryAccess registryAccess) {
+        super(new Gson(), definition.key().directory());
+        this.definition = definition;
         this.codec = codec;
         this.registryAccess = registryAccess;
     }
 
     public StreamCodec<FriendlyByteBuf, B> streamCodec() {
-        return streamCodec;
+        return definition.streamCodec();
     }
 
     public DatapackKey<B> key() {
-        return datapackKey;
+        return definition.key();
     }
 
     public abstract B getData();
@@ -59,7 +57,7 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
      */
     public A parseOrDefault(JsonElement element, A defaultValue) {
         return codec.parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess), element)
-                .resultOrPartial(error -> Datapacks.LOGGER.error("Failed to parse JSON for datapack {}: {}", datapackKey, error))
+                .resultOrPartial(error -> Datapacks.LOGGER.error("Failed to parse JSON for datapack {}: {}", definition.key(), error))
                 .orElse(defaultValue);
     }
 }

@@ -1,5 +1,6 @@
-package me.alfie.alfinolib.datapacks;
+package me.alfie.alfinolib.datapacks.server;
 
+import me.alfie.alfinolib.datapacks.DataMap;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.eventbus.api.Event;
 

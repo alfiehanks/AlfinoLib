@@ -1,14 +1,17 @@
 package me.alfie.alfinolib.datapacks;
 
 import com.mojang.logging.LogUtils;
+import me.alfie.alfinolib.datapacks.client.ClientDatapackManager;
+import me.alfie.alfinolib.datapacks.server.ServerDatapackManager;
 import me.alfie.alfinolib.networking.NetworkRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import me.alfie.alfinolib.networking.Networking;
 import org.slf4j.Logger;
 
 public final class Datapacks {
 
-    static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     //Setup
 

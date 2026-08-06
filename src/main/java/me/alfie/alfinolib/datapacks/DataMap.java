@@ -1,6 +1,7 @@
 package me.alfie.alfinolib.datapacks;
 
 
+import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
 
@@ -31,9 +32,11 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
             T value = (T) entry.getValue();
 
             DatapackKey.STREAM_CODEC.encode(buf, key);
-            ModDatapack<?, T> datapack = DatapackRegistry.get(key);
 
-            StreamCodec<FriendlyByteBuf, T> streamCodec = datapack.streamCodec();
+            //ModDatapack<?, T> datapack = ServerDatapackRegistry.get(key);
+            DatapackDefinition<T> definition = DatapackRegistry.get(key);
+
+            StreamCodec<FriendlyByteBuf, T> streamCodec = definition.streamCodec();
             streamCodec.encode(buf, value);
         }
     }
@@ -44,7 +47,7 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
 
         for (int i = 0; i < size; i++) {
             DatapackKey<?> datapackKey = DatapackKey.STREAM_CODEC.decode(buf);
-            ModDatapack<?, ?> datapack = DatapackRegistry.get(datapackKey);
+            DatapackDefinition<?> definition = DatapackRegistry.get(datapackKey);
 
             StreamCodec<FriendlyByteBuf, ?> streamCodec = datapack.streamCodec();
 
@@ -52,7 +55,7 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
                 Object value = streamCodec.decode(buf);
                 result.put(datapackKey, value);
             } catch (Exception e) {
-                throw new IllegalStateException("Failed decoding key " + datapackKey + " using codec " + datapack.streamCodec().getClass().getName(), e);
+                throw new IllegalStateException("Failed decoding key " + datapackKey + " using codec " + streamCodec, e);
             }
         }
 

@@ -1,15 +1,13 @@
 package me.alfie.alfinolib.debug.datapack;
 
 import com.google.gson.JsonElement;
-import com.mojang.serialization.Codec;
 import me.alfie.alfinolib.AlfinoLib;
+import me.alfie.alfinolib.datapacks.DatapackDefinition;
 import me.alfie.alfinolib.datapacks.DatapackKey;
-import me.alfie.alfinolib.datapacks.DatapackRegistry;
+import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.datapacks.ModDatapack;
-import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -21,10 +19,12 @@ import java.util.Map;
 public class TestDatapack extends ModDatapack<TestData, TestData> {
 
     public static final DatapackKey<TestData> KEY = new DatapackKey<>(AlfinoLib.MODID, "test_datapack");
+    public static final DatapackDefinition<TestData> DEFINITION = new DatapackDefinition<>(KEY, TestData.STREAM_CODEC);
+
     private TestData data;
 
     public TestDatapack(RegistryAccess registryAccess) {
-        super(TestData.CODEC, KEY, TestData.STREAM_CODEC, registryAccess);
+        super(TestData.CODEC, DEFINITION, registryAccess);
     }
 
     @Override
@@ -39,10 +39,6 @@ public class TestDatapack extends ModDatapack<TestData, TestData> {
     }
 
     public static void register(AddReloadListenerEvent event) {
-        DatapackRegistry.register(event, () -> new TestDatapack(event.getRegistryAccess()));
+        ServerDatapackRegistry.register(event, () -> new TestDatapack(event.getRegistryAccess()));
     }
-
-
-
-
 }
