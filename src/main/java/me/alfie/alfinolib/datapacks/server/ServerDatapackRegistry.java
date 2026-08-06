@@ -5,9 +5,10 @@ package me.alfie.alfinolib.datapacks.server;
 
 import me.alfie.alfinolib.AlfinoLib;
 import me.alfie.alfinolib.datapacks.*;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,6 @@ import java.util.function.Supplier;
 /**
  * Stores a map of DatapackKeys and raw ModDatapacks server-side. The ServerDatapackManager pulls the data from here and sends it to the client.
  */
-@Mod(value = AlfinoLib.MODID, dist = Dist.DEDICATED_SERVER)
 public final class ServerDatapackRegistry {
 
     private static final Map<DatapackKey<?>, ModDatapack<?, ?>> DATAPACKS = new HashMap<>();

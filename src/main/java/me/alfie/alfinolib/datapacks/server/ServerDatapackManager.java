@@ -5,6 +5,8 @@ import me.alfie.alfinolib.datapacks.*;
 import me.alfie.alfinolib.networking.Networking;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
@@ -14,7 +16,6 @@ import net.minecraftforge.event.server.ServerStoppedEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod(value = AlfinoLib.MODID, dist = Dist.DEDICATED_SERVER)
 public final class ServerDatapackManager {
 
     private static ServerDatapackManager INSTANCE;

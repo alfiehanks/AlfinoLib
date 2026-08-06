@@ -6,11 +6,13 @@ import me.alfie.alfinolib.datapacks.DatapackKey;
 import me.alfie.alfinolib.datapacks.Datapacks;
 import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.HashMap;
 
-@Mod(value = AlfinoLib.MODID, dist = Dist.CLIENT)
 public class ClientDatapackManager {
 
     private static DataMap dataMap = new DataMap(new HashMap<>());

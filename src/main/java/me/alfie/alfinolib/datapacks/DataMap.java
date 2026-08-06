@@ -49,7 +49,7 @@ public record DataMap(Map<DatapackKey<?>, Object> map) {
             DatapackKey<?> datapackKey = DatapackKey.STREAM_CODEC.decode(buf);
             DatapackDefinition<?> definition = DatapackRegistry.get(datapackKey);
 
-            StreamCodec<FriendlyByteBuf, ?> streamCodec = datapack.streamCodec();
+            StreamCodec<FriendlyByteBuf, ?> streamCodec = definition.streamCodec();
 
             try {
                 Object value = streamCodec.decode(buf);

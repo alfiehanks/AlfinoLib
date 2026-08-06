@@ -8,6 +8,7 @@ import me.alfie.alfinolib.debug.DebugCommands;
 import me.alfie.alfinolib.debug.datapack.TestData;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import me.alfie.alfinolib.networking.Networking;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -26,8 +27,8 @@ public class AlfinoLib {
 
         DatapackRegistry.register(TestDatapack.DEFINITION);
 
-        NeoForge.EVENT_BUS.addListener(TestDatapack::register);
-        NeoForge.EVENT_BUS.addListener(DebugCommands::register);
+        MinecraftForge.EVENT_BUS.addListener(TestDatapack::register);
+        MinecraftForge.EVENT_BUS.addListener(DebugCommands::register);
     }
 
 }

@@ -7,6 +7,7 @@ import me.alfie.alfinolib.networking.NetworkRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import me.alfie.alfinolib.networking.Networking;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 public final class Datapacks {
@@ -24,6 +25,7 @@ public final class Datapacks {
         MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerFinished);
         MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerReload);
         MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStop);
+
 
         if (FMLEnvironment.dist.isClient()) {
             MinecraftForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);

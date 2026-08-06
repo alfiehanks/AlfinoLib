@@ -1,6 +1,7 @@
 package me.alfie.alfinolib.datapacks;
 
 import me.alfie.alfinolib.AlfinoLib;
+import me.alfie.alfinolib.datapacks.client.ClientDatapackManager;
 import me.alfie.alfinolib.networking.NetworkPacket;
 import me.alfie.alfinolib.networking.codec.CommonCodecs;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
