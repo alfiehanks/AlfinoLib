@@ -22,6 +22,10 @@ public final class Datapacks {
         MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerReload);
         MinecraftForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStop);
 
+        if (FMLEnvironment.dist.isClient()) {
+            MinecraftForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);
+        }
+
         modEventBus.addListener(Datapacks::registerPacket);
     }
 

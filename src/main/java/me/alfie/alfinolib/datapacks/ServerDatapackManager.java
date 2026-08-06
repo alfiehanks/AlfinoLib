@@ -12,6 +12,7 @@ import net.minecraftforge.event.server.ServerStoppedEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+@Mod(value = AlfinoLib.MODID, dist = Dist.DEDICATED_SERVER)
 public final class ServerDatapackManager {
 
     private static ServerDatapackManager INSTANCE;
