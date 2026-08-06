@@ -26,7 +26,7 @@ public final class Datapacks {
         NeoForge.EVENT_BUS.addListener(ServerDatapackManager::onServerReload);
         NeoForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStop);
 
-        if (FMLEnvironment.dist.isClient()) {
+        if (FMLEnvironment.getDist().isClient()) {
             NeoForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);
         }
 

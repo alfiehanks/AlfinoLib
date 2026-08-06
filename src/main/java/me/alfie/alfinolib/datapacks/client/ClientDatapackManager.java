@@ -24,7 +24,7 @@ public class ClientDatapackManager {
     }
 
     public static void onServerLeave(ClientPlayerNetworkEvent.LoggingOut event) {
-        Datapacks.LOGGER.info("Client disconnected, clearing client dataMap and unregistering DatapackRegistry");
+        Datapacks.LOGGER.info("Client disconnected, clearing client dataMap");
         dataMap = new DataMap(new HashMap<>());
     }
 

@@ -48,9 +48,12 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
     public abstract B getData();
 
     @Override
-    protected void apply(@NotNull Map<Identifier, A> identifierAMap, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {}
+    protected void apply(@NotNull Map<Identifier, A> identifierAMap, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
+    }
 
-    /** Returns value if non-null, otherwise defaultValue. Mirrors the parseOrDefault signature on older branches. */
+    /**
+     * Returns value if non-null, otherwise defaultValue. Mirrors the parseOrDefault signature on older branches.
+     */
     public A parseOrDefault(@Nullable A value, A defaultValue) {
         return value != null ? value : defaultValue;
     }

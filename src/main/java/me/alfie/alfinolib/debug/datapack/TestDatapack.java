@@ -8,10 +8,10 @@ import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.datapacks.ModDatapack;
 import me.alfie.alfinolib.util.ResourceId;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -33,12 +33,12 @@ public class TestDatapack extends ModDatapack<TestData, TestData> {
     }
 
     @Override
-    protected void apply(@NotNull Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
+    protected void apply(@NotNull Map<Identifier, TestData> map, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
         ResourceId key = new ResourceId(AlfinoLib.MODID, "test_datapack");
         data = parseOrDefault(map.get(key.mc()), new TestData("Something went wrong!", 0));
     }
 
-    public static void register(AddReloadListenerEvent event) {
+    public static void register(AddServerReloadListenersEvent event) {
         ServerDatapackRegistry.register(event, () -> new TestDatapack(event.getRegistryAccess()));
     }
 }
