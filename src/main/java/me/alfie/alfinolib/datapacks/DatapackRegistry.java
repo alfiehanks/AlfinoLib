@@ -23,6 +23,13 @@ public final class DatapackRegistry {
         Datapacks.LOGGER.debug("Registered datapack {}", datapackKey);
     }
 
+    /**
+     * Clear the datapack hashmap, only intended for client to prevent caching datapack keys between worlds/servers.
+     */
+    static void unregister() {
+        DATAPACKS.clear();
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> ModDatapack<?, T> get(DatapackKey<T> key) {
         return (ModDatapack<?, T>) DATAPACKS.get(key);

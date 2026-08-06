@@ -3,7 +3,9 @@ package me.alfie.alfinolib.datapacks;
 import com.mojang.logging.LogUtils;
 import me.alfie.alfinolib.networking.NetworkRegisterEvent;
 import me.alfie.alfinolib.networking.Networking;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -22,6 +24,10 @@ public final class Datapacks {
         NeoForge.EVENT_BUS.addListener(ServerDatapackManager::onServerFinished);
         NeoForge.EVENT_BUS.addListener(ServerDatapackManager::onServerReload);
         NeoForge.EVENT_BUS.addListener(ServerDatapackManager::onServerStop);
+
+        if (FMLEnvironment.dist.isClient()) {
+            NeoForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);
+        }
 
         modEventBus.addListener(Datapacks::registerPacket);
     }

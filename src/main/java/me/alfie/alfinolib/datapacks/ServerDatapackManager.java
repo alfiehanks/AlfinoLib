@@ -1,8 +1,11 @@
 package me.alfie.alfinolib.datapacks;
 
+import me.alfie.alfinolib.AlfinoLib;
 import me.alfie.alfinolib.networking.Networking;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
@@ -12,6 +15,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+@Mod(value = AlfinoLib.MODID, dist = Dist.DEDICATED_SERVER)
 public final class ServerDatapackManager {
 
     private static ServerDatapackManager INSTANCE;
