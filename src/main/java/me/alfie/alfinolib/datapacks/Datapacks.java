@@ -1,9 +1,10 @@
 package me.alfie.alfinolib.datapacks;
 
 import com.mojang.logging.LogUtils;
+import me.alfie.alfinolib.datapacks.client.ClientDatapackManager;
+import me.alfie.alfinolib.datapacks.server.ServerDatapackManager;
 import me.alfie.alfinolib.networking.NetworkRegisterEvent;
 import me.alfie.alfinolib.networking.Networking;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
@@ -11,7 +12,7 @@ import org.slf4j.Logger;
 
 public final class Datapacks {
 
-    static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     //Setup
 

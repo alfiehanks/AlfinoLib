@@ -1,41 +1,34 @@
 package me.alfie.alfinolib.datapacks;
 
-
-
-
-import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
 
-public final class DatapackRegistry {
+/**
+ * The common DatapackRegistry stored on client and server. Simply stores a DatapackKey and its definition.
+ * The definition contains a reference to the DatapackKey and its StreamCodec, used for decoding data on the client.
+ * Does not store actual data or datapacks, see ServerDatapackRegistry.
+ */
+public class DatapackRegistry {
 
-    private static final Map<DatapackKey<?>, ModDatapack<?, ?>> DATAPACKS = new HashMap<>();
+    private static final Map<DatapackKey<?>, DatapackDefinition<?>> DEFINITIONS = new HashMap<>();
 
-    public static <A, B> void register(AddServerReloadListenersEvent event, Supplier<ModDatapack<A, B>> factory) {
-        ModDatapack<A, B> datapack = factory.get();
-        DatapackKey<B> datapackKey = datapack.key();
+    public static void register(DatapackDefinition<?> definition) {
+        DatapackDefinition<?> existing = DEFINITIONS.put(definition.key(), definition);
 
-        event.addListener(datapackKey.id().mc(), datapack);
-        DATAPACKS.put(datapackKey, datapack);
-        Datapacks.LOGGER.debug("Registered datapack {}", datapackKey);
+        if(existing != null) {
+            throw new IllegalStateException(
+                    "Duplicate datapack definition registered for " + definition.key()
+            );
+        }
     }
 
-    /**
-     * Clear the datapack hashmap, only intended for client to prevent caching datapack keys between worlds/servers.
-     */
-    static void unregister() {
-        DATAPACKS.clear();
+    public static void clear() {
+        DEFINITIONS.clear();
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> ModDatapack<?, T> get(DatapackKey<T> key) {
-        return (ModDatapack<?, T>) DATAPACKS.get(key);
-    }
-
-    public static Set<Map.Entry<DatapackKey<?>, ModDatapack<?, ?>>> entrySet() {
-        return DATAPACKS.entrySet();
+    public static <T> DatapackDefinition<T> get(DatapackKey<T> key) {
+        return (DatapackDefinition<T>) DEFINITIONS.get(key);
     }
 }
