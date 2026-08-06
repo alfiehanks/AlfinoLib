@@ -1,14 +1,15 @@
-package me.alfie.alfinolib.datapacks;
+package me.alfie.alfinolib.datapacks.client;
 
 import me.alfie.alfinolib.AlfinoLib;
+import me.alfie.alfinolib.datapacks.DataMap;
+import me.alfie.alfinolib.datapacks.DatapackKey;
+import me.alfie.alfinolib.datapacks.Datapacks;
+import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.protocol.common.ClientboundDisconnectPacket;
-import net.minecraft.network.protocol.game.ClientboundServerDataPacket;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.HashMap;
 
@@ -25,7 +26,6 @@ public class ClientDatapackManager {
     public static void onServerLeave(ClientPlayerNetworkEvent.LoggingOut event) {
         Datapacks.LOGGER.info("Client disconnected, clearing client dataMap and unregistering DatapackRegistry");
         dataMap = new DataMap(new HashMap<>());
-        DatapackRegistry.unregister();
     }
 
     public static <T> T get(DatapackKey<T> key) {

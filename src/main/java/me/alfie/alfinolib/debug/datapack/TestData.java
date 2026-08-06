@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.alfie.alfinolib.networking.codec.CommonCodecs;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.networking.codec.StreamCodecBuilder;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 
 /**
@@ -24,5 +23,4 @@ public record TestData(String testString, int testInt) {
             .add(CommonCodecs.STRING, TestData::testString)
             .add(CommonCodecs.VAR_INT, TestData::testInt)
             .build(TestData::new);
-
 }
