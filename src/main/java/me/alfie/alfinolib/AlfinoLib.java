@@ -1,11 +1,10 @@
 package me.alfie.alfinolib;
 
 import com.mojang.logging.LogUtils;
-import me.alfie.alfinolib.datapacks.DatapackDefinition;
+import me.alfie.alfinolib.commands.Commands;
 import me.alfie.alfinolib.datapacks.DatapackRegistry;
 import me.alfie.alfinolib.datapacks.Datapacks;
-import me.alfie.alfinolib.debug.DebugCommands;
-import me.alfie.alfinolib.debug.datapack.TestData;
+import me.alfie.alfinolib.debug.command.CheckDatapackSyncCommand;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import me.alfie.alfinolib.networking.Networking;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,11 +23,11 @@ public class AlfinoLib {
         IEventBus modEventBus = context.getModEventBus();
         Networking.init(modEventBus);
         Datapacks.init(modEventBus);
+        Commands.init(modEventBus);
 
-        DatapackRegistry.register(TestDatapack.DEFINITION);
+        Commands.register(new CheckDatapackSyncCommand());
 
-        MinecraftForge.EVENT_BUS.addListener(TestDatapack::register);
-        MinecraftForge.EVENT_BUS.addListener(DebugCommands::register);
+        DatapackRegistry.register(TestDatapack.DEFINITION, TestDatapack::new);
     }
 
 }

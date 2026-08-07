@@ -31,10 +31,7 @@ public final class Datapacks {
             MinecraftForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);
         }
 
-        modEventBus.addListener(Datapacks::registerPacket);
+        modEventBus.addListener(SyncClientDatapackPacket::register);
     }
 
-    private static void registerPacket(NetworkRegisterEvent event) {
-        event.register(SyncClientDatapackPacket.class, SyncClientDatapackPacket.STREAM_CODEC);
-    }
 }
