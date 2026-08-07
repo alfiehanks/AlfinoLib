@@ -5,8 +5,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import me.alfie.alfinolib.AlfinoLib;
 import me.alfie.alfinolib.commands.ModCommand;
-import me.alfie.alfinolib.commands.PermissionLevel;
-import me.alfie.alfinolib.datapacks.client.ClientDatapackManager;
 import me.alfie.alfinolib.datapacks.server.ServerDatapackManager;
 import me.alfie.alfinolib.debug.RequestClientTestPacket;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
@@ -20,7 +18,7 @@ public class CheckDatapackSyncCommand implements ModCommand {
     @Override
     public void build(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal(AlfinoLib.MODID).requires(source -> source.hasPermission(PermissionLevel.GAMEMASTER.ordinal()))
+                Commands.literal(AlfinoLib.MODID).requires(source -> source.hasPermission(2))
                         .then(Commands.literal("debug")
                             .then(Commands.literal("checkDatapackSync")
                                     .then(Commands.argument("side", StringArgumentType.word())
