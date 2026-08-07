@@ -1,4 +1,3 @@
 {
-  "testString": "Test Datapack for debugging client and server syncing, successfully synced",
-  "testInt": 2222
+  "testString": "This string is defined in alfinolib/test_datapack - datapack is loaded for %s"
 }

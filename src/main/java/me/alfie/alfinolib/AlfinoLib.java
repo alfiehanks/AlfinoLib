@@ -1,17 +1,15 @@
 package me.alfie.alfinolib;
 
 import com.mojang.logging.LogUtils;
-import me.alfie.alfinolib.datapacks.DatapackDefinition;
+import me.alfie.alfinolib.commands.Commands;
 import me.alfie.alfinolib.datapacks.DatapackRegistry;
 import me.alfie.alfinolib.datapacks.Datapacks;
-import me.alfie.alfinolib.debug.DebugCommands;
-import me.alfie.alfinolib.debug.datapack.TestData;
+import me.alfie.alfinolib.debug.command.CheckDatapackSyncCommand;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import me.alfie.alfinolib.networking.Networking;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 @Mod(AlfinoLib.MODID)
@@ -23,11 +21,11 @@ public class AlfinoLib {
     public AlfinoLib(IEventBus modEventBus, ModContainer modContainer) {
         Networking.init(modEventBus);
         Datapacks.init(modEventBus);
+        Commands.init(modEventBus);
 
-        DatapackRegistry.register(TestDatapack.DEFINITION);
+        Commands.register(new CheckDatapackSyncCommand());
 
-        NeoForge.EVENT_BUS.addListener(TestDatapack::register);
-        NeoForge.EVENT_BUS.addListener(DebugCommands::register);
+        DatapackRegistry.register(TestDatapack.DEFINITION, TestDatapack::new);
     }
 
 }

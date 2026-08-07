@@ -10,17 +10,15 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 /**
  * Test data example that holds a string and an int
  */
-public record TestData(String testString, int testInt) {
+public record TestData(String testString) {
 
     static final Codec<TestData> CODEC = RecordCodecBuilder.create(
             testDataInstance -> testDataInstance.group(
-                    Codec.STRING.fieldOf("testString").forGetter(TestData::testString),
-                    Codec.INT.fieldOf("testInt").forGetter(TestData::testInt)
+                    Codec.STRING.fieldOf("testString").forGetter(TestData::testString)
             ).apply(testDataInstance, TestData::new)
     );
 
     static final StreamCodec<RegistryFriendlyByteBuf, TestData> STREAM_CODEC = StreamCodecBuilder.<RegistryFriendlyByteBuf, TestData>create()
             .add(CommonCodecs.STRING, TestData::testString)
-            .add(CommonCodecs.VAR_INT, TestData::testInt)
             .build(TestData::new);
 }

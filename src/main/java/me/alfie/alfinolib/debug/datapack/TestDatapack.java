@@ -35,7 +35,7 @@ public class TestDatapack extends ModDatapack<TestData, TestData> {
     @Override
     protected void apply(@NotNull Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
         ResourceId key = new ResourceId(AlfinoLib.MODID, "test_datapack");
-        data = parseOrDefault(map.get(key.mc()), new TestData("Something went wrong!", 0));
+        data = parseOrDefault(map.get(key.mc()), new TestData("This string is the default if no data has loaded - datapack is not loaded for %s"));
     }
 
     public static void register(AddReloadListenerEvent event) {
