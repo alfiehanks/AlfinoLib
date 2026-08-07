@@ -14,13 +14,16 @@ import me.alfie.alfinolib.networking.Networking;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.PermissionCheck;
+import net.minecraft.server.permissions.Permissions;
 
 public class CheckDatapackSyncCommand implements ModCommand {
 
     @Override
     public void build(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
-                Commands.literal(AlfinoLib.MODID).requires(source -> source.hasPermission(PermissionLevel.GAMEMASTER.ordinal()))
+                Commands.literal(AlfinoLib.MODID)
+                        .requires(Commands.hasPermission(new PermissionCheck.Require(Permissions.COMMANDS_GAMEMASTER)))
                         .then(Commands.literal("debug")
                             .then(Commands.literal("checkDatapackSync")
                                     .then(Commands.argument("side", StringArgumentType.word())

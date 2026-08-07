@@ -4,7 +4,7 @@ import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import net.minecraft.core.RegistryAccess;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class DatapackRegistry {
             );
         }
 
-        NeoForge.EVENT_BUS.addListener((AddReloadListenerEvent event) -> {
+        NeoForge.EVENT_BUS.addListener((AddServerReloadListenersEvent event) -> {
             ServerDatapackRegistry.register(
                     event,
                     () -> factory.apply(event.getRegistryAccess())
