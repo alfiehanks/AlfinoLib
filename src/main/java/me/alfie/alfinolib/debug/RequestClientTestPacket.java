@@ -13,28 +13,25 @@ import me.alfie.alfinolib.networking.Networking;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
 import me.alfie.alfinolib.networking.codec.StreamCodecBuilder;
 import me.alfie.alfinolib.util.ResourceId;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.minecraftforge.network.NetworkEvent;
 
 public record RequestClientTestPacket() implements NetworkPacket<RequestClientTestPacket> {
 
-    public static final Type<RequestClientTestPacket> TYPE = new Type<>(
-            new ResourceId(AlfinoLib.MODID, "request_client_test").mc());
-    @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
-
-    public static final StreamCodec<RegistryFriendlyByteBuf, RequestClientTestPacket> STREAM_CODEC =
+    public static final StreamCodec<FriendlyByteBuf, RequestClientTestPacket> STREAM_CODEC =
             StreamCodec.unit(new RequestClientTestPacket());
 
     @Override
-    public void exec(IPayloadContext context) {
+    public void exec(NetworkEvent.Context context) {
         String testString = ClientDatapackManager.get(TestDatapack.KEY).testString();
         testString = testString.replace("%s", "client");
-        context.player().sendSystemMessage(Component.literal(testString));
+
+        Minecraft.getInstance().player.sendSystemMessage(Component.literal(testString));
     }
 
     public static void register(NetworkRegisterEvent event) {
-        event.register(Networking.Side.CLIENT, RequestClientTestPacket.TYPE, RequestClientTestPacket.STREAM_CODEC);
+        event.register(RequestClientTestPacket.class, RequestClientTestPacket.STREAM_CODEC);
     }
 }

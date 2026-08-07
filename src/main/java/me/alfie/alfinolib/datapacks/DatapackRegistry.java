@@ -3,6 +3,8 @@ package me.alfie.alfinolib.datapacks;
 import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import net.minecraft.core.RegistryAccess;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;

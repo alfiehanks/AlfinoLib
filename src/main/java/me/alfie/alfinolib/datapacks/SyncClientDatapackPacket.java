@@ -24,6 +24,6 @@ public record SyncClientDatapackPacket(DataMap dataMap) implements NetworkPacket
     }
 
     public static void register(NetworkRegisterEvent event) {
-        event.register(Networking.Side.CLIENT, SyncClientDatapackPacket.TYPE, SyncClientDatapackPacket.STREAM_CODEC);
+        event.register(SyncClientDatapackPacket.class, SyncClientDatapackPacket.STREAM_CODEC);
     }
 }
