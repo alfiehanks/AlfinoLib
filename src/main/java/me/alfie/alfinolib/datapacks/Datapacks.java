@@ -30,10 +30,7 @@ public final class Datapacks {
             NeoForge.EVENT_BUS.addListener(ClientDatapackManager::onServerLeave);
         }
 
-        modEventBus.addListener(Datapacks::registerPacket);
+        modEventBus.addListener(SyncClientDatapackPacket::register);
     }
 
-    private static void registerPacket(NetworkRegisterEvent event) {
-        event.register(Networking.Side.CLIENT, SyncClientDatapackPacket.TYPE, SyncClientDatapackPacket.STREAM_CODEC);
-    }
 }
