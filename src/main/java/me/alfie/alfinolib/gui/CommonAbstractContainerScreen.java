@@ -29,6 +29,15 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
         super(menu, inventory, title, imageWidth, imageHeight);
     }
 
+    //26.3 old methods point to new method names because we love renaming things for no reason
+    public int getGuiLeft() {
+        return getLeftPos();
+    }
+
+    public int getGuiTop() {
+        return getTopPos();
+    }
+
     //Common render calls
 
     /*
@@ -133,7 +142,7 @@ public abstract class CommonAbstractContainerScreen<T extends AbstractContainerM
 
     @Override
     public final boolean keyPressed(KeyEvent event) {
-        return onKeyPress(event.key(), event.scancode(), event.modifiers());
+        return onKeyPress(event.key(), event.keycode(), event.modifiers());
     }
 
     @Override
