@@ -7,6 +7,7 @@ import com.mojang.serialization.JsonOps;
 import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import org.jetbrains.annotations.Nullable;
 import me.alfie.alfinolib.networking.codec.StreamCodec;
@@ -30,9 +31,9 @@ public abstract class ModDatapack<A, B> extends SimpleJsonResourceReloadListener
 
     private final DatapackDefinition<B> definition;
     private final Codec<A> codec;
-    private final RegistryAccess registryAccess;
+    private final HolderLookup.Provider registryAccess;
 
-    public ModDatapack(Codec<A> codec, DatapackDefinition<B> definition, RegistryAccess registryAccess) {
+    public ModDatapack(Codec<A> codec, DatapackDefinition<B> definition, HolderLookup.Provider registryAccess) {
         super(codec, FileToIdConverter.json(definition.key().directory()));
         this.definition = definition;
         this.codec = codec;

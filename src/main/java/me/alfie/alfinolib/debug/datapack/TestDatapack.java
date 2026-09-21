@@ -7,6 +7,7 @@ import me.alfie.alfinolib.datapacks.DatapackKey;
 import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.datapacks.ModDatapack;
 import me.alfie.alfinolib.util.ResourceId;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -23,7 +24,7 @@ public class TestDatapack extends ModDatapack<TestData, TestData> {
 
     private TestData data;
 
-    public TestDatapack(RegistryAccess registryAccess) {
+    public TestDatapack(HolderLookup.Provider registryAccess) {
         super(TestData.CODEC, DEFINITION, registryAccess);
     }
 
@@ -39,6 +40,6 @@ public class TestDatapack extends ModDatapack<TestData, TestData> {
     }
 
     public static void register(AddServerReloadListenersEvent event) {
-        ServerDatapackRegistry.register(event, () -> new TestDatapack(event.getRegistryAccess()));
+        ServerDatapackRegistry.register(event, () -> new TestDatapack(event.getServerResources().getRegistryLookup()));
     }
 }

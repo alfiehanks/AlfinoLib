@@ -2,6 +2,7 @@ package me.alfie.alfinolib.datapacks;
 
 import me.alfie.alfinolib.datapacks.server.ServerDatapackRegistry;
 import me.alfie.alfinolib.debug.datapack.TestDatapack;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
@@ -20,7 +21,7 @@ public class DatapackRegistry {
 
     private static final Map<DatapackKey<?>, DatapackDefinition<?>> DEFINITIONS = new HashMap<>();
 
-    public static <A, B, D extends ModDatapack<A, B>> void register(DatapackDefinition<B> definition, Function<RegistryAccess, D> factory) {
+    public static <A, B, D extends ModDatapack<A, B>> void register(DatapackDefinition<B> definition, Function<HolderLookup.Provider, D> factory) {
         DatapackDefinition<?> existing = DEFINITIONS.put(definition.key(), definition);
 
         if(existing != null) {
@@ -32,7 +33,7 @@ public class DatapackRegistry {
         NeoForge.EVENT_BUS.addListener((AddServerReloadListenersEvent event) -> {
             ServerDatapackRegistry.register(
                     event,
-                    () -> factory.apply(event.getRegistryAccess())
+                    () -> factory.apply(event.getServerResources().getRegistryLookup())
             );
         });
     }
