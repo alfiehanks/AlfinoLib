@@ -50,6 +50,10 @@ public final class ServerDatapackManager {
         SERVER = event.getServer();
         INSTANCE = new ServerDatapackManager();
         Datapacks.LOGGER.debug("ServerDatapackManager initialised.");
+        // The datapacks are already loaded here, but a new world generates its spawn area before ServerStartedEvent.
+        // Structures placed then (e.g. Immersive Enchanting's Ancient Library bookshelves) read this data, so pull it now
+        // too; otherwise get() hits a null dataMap and world creation crashes. onServerFinished pulls it again as before.
+        pullData();
     }
 
     /**Pull data after server loads*/
